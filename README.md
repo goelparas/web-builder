@@ -1,7 +1,3 @@
-Sure, here's a revised version of your README:
-
----
-
 # Website Builder Project
 
 ## Tech Stack
