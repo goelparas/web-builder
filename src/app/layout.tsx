@@ -16,8 +16,8 @@ const Layout = ({ children }: Props) => {
       <head >
         <meta charSet="UTF-8" />
       </head>
-      <body className="dark">
-        <div className="w-full">
+      <body className=" bg-primary-foreground">
+        <div className="w-full ">
            {children} 
         </div>
       </body>

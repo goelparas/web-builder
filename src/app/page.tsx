@@ -1,6 +1,4 @@
-'use client'
-import { Switch } from "@/components/ui/switch";
-import { useTheme } from "next-themes";
+"use client";
 import Link from "next/link";
 import React from "react";
 
@@ -10,19 +8,15 @@ const templates = [
   { id: 2, name: "Template 2" },
 ];
 const page = (props: Props) => {
-  const { theme, setTheme } = useTheme();
-
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full ">
       <nav className="flex justify-between p-4">
-        
-        <h1 className="text-3xl font-bold">Select a Template</h1>
-        <Switch onCheckedChange={()=>setTheme('dark')}></Switch>
+        <h1 className="text-3xl font-bold text-primary">Select a Template</h1>
       </nav>
 
       <ul>
         {templates.map((template) => (
-          <li key={template.id}>
+          <li key={template.id} className="text-primary"> 
             <Link href={`/editor/${template.id}`}>{template.name}</Link>
           </li>
         ))}

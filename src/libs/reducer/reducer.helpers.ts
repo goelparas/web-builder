@@ -14,19 +14,19 @@ export const addAnElement = (
 
   return [...currentEditorElements, action.payload.elementDetails];
 };
-
-export const updateElement = (
+export const updateElements = (
   currentEditorState: Editor,
   action: EditorAction
-): EditorElement[] => {
+): EditorElement[]=> {
   if (action.type !== EditorActionType.UPDATE_ELEMENT)
     throw Error(
       "You sent the wrong action type to the Update Element editor State"
     );
+      console.log(action.payload.elementDetails);
   return currentEditorState.elements.map((element) => {
     if (element.id === action.payload.elementDetails.id) {
-      return action.payload.elementDetails;
+      return {...action.payload.elementDetails};
     }
-    return element;
+    return element; 
   });
 };

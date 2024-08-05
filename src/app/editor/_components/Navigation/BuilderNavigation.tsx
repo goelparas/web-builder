@@ -21,8 +21,7 @@ type Props = {
 
 const BuilderNavigation = ({ pageId }: Props) => {
   const { state, dispatch } = useContext(EditorContext);
-  const handlePreviewClick = () =>
-    dispatch({ type: EditorActionType.TOGGLE_PREVIEW_MODE });
+  const handlePreviewClick = () =>dispatch({ type: EditorActionType.TOGGLE_PREVIEW_MODE });
   const handleUndo = () => dispatch({ type: EditorActionType.UNDO });
   const handleRedo = () => dispatch({ type: EditorActionType.REDO });
 
@@ -80,7 +79,7 @@ const BuilderNavigation = ({ pageId }: Props) => {
           className="hover:bg-slate-800"
           onClick={handlePreviewClick}
         >
-          <EyeIcon stroke="white" />
+          <EyeIcon  />
         </Button>
         <Button
           disabled={!(state.history.currentHistoryPointer > 0)}
@@ -89,13 +88,12 @@ const BuilderNavigation = ({ pageId }: Props) => {
           size={"icon"}
           className="hover:bg-slate-400"
         >
-          <Undo2 stroke="white" />
+          <Undo2  />
         </Button>
         <Button
           disabled={
             !(
-              state.history.currentHistoryPointer <
-              state.history.historyStack.length - 1
+              state.history.currentHistoryPointer < state.history.historyStack.length - 1
             )
           }
           onClick={handleRedo}
@@ -103,7 +101,7 @@ const BuilderNavigation = ({ pageId }: Props) => {
           size={"icon"}
           className="hover:bg-slate-800 mr-4"
         >
-          <Redo2 stroke="white" />
+          <Redo2  />
         </Button>
         <Button onClick={handleOnSave}>Save</Button>
       </aside>

@@ -29,16 +29,14 @@ export const EditorContext = createContext<{
 export const EditorProvider = ({ children, pageId }: EditorProps) => {
   const [state, dispatch] = useReducer(EditorReducer, initialState);
   return (
-    <>
-      <EditorContext.Provider
-        value={{
-          state,
-          dispatch,
-          pageId,
-        }}
-      >
-        {children}
-      </EditorContext.Provider>
-    </>
+    <EditorContext.Provider
+      value={{
+        state,
+        dispatch,
+        pageId,
+      }}
+    >
+      {children}
+    </EditorContext.Provider>
   );
 };

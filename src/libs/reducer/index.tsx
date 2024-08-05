@@ -1,8 +1,9 @@
-"use client"
+"use client";
 import { EditorAction } from "../actions/editor.actions";
 import { Editor, WebBuilder, HistoryState } from "../types/editor";
 import { EditorActionType } from "../types/editor-action.types";
-import { addAnElement, updateElement } from "./reducer.helpers";
+import { EditorElement } from "../types/editor-element";
+import { addAnElement, updateElements } from "./reducer.helpers";
 
 const intialEditorState: Editor = {
   device: "desktop",
@@ -10,19 +11,19 @@ const intialEditorState: Editor = {
     {
       id: "1",
       style: {},
-      name: "_body",
-      type: "_body",
-      content: {},
+      name: "body",
+      type: "body",
+      content: undefined,
     },
   ],
   pageId: "",
   previewMode: false,
   selectedElement: {
-    id: "",
-    style: { position: "absolute" },
-    name: "Landing Page",
-    type: "text",
-    content: {},
+    id: "0",
+    style: {},
+    name: "body",
+    type: null,
+    content: undefined,
   },
 };
 
@@ -64,10 +65,13 @@ export const EditorReducer = (
       };
     }
     case EditorActionType.UPDATE_ELEMENT: {
-      let updatedEditorState = {
+      let updatedElements = updateElements(state.editor, action);
+      let updatedEditorState: Editor = {
         ...state.editor,
-        elements: updateElement(state.editor, action),
+        selectedElement: action.payload.elementDetails,
+        elements: updatedElements,
       };
+
       let updatedHistoryStack = [
         ...state.history.historyStack.slice(
           0,

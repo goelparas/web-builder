@@ -2,10 +2,10 @@
 
 import { useParams } from "next/navigation";
 import React from "react";
-import BuilderEditor from "../_components/BuilderEditor";
-import BuilderSideBar from "../_components/BuilderSideBar";
+import BuilderEditor from "../_components/Editor/BuilderEditor";
+import BuilderSideBar from "../_components/Sidebar/BuilderSideBar";
 import { EditorProvider } from "@/libs/context/editor.context";
-import BuilderNavigation from "../_components/BuilderNavigation";
+import BuilderNavigation from "../_components/Navigation/BuilderNavigation";
 
 type Props = {};
 

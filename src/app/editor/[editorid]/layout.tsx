@@ -6,7 +6,7 @@ type Props = {
 };
 
 const Layout = ({ children }: Props) => {
-  return  <div className="w-full h-full">{ children }</div>
+  return  <div className="w-full h-full text-primary">{ children }</div>
 };
 
 export default Layout;
