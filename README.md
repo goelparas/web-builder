@@ -21,11 +21,11 @@ Sure, here's a revised version of your README:
 
 1. Clone the repository:
    ```bash
-   git clone [https://github.com/your-username/website-builder.git](https://github.com/goelparas/web-builder.git)
+   git clone https://github.com/goelparas/web-builder.git
    ```
 2. Navigate to the project directory:
    ```bash
-   cd website-builder
+   cd fibr.ai
    ```
 3. Install dependencies:
    ```bash
@@ -35,11 +35,6 @@ Sure, here's a revised version of your README:
    ```bash
    npm run dev
    ```
-
 ## Development Status
-
 The project is currently under development.
 
----
-
-Feel free to customize it further as needed!
