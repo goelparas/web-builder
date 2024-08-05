@@ -7,7 +7,7 @@ export type Editor = {
   selectedElement: EditorElement;
   device: DeviceType;
   previewMode: boolean;
-  funnelPageId: string;
+  pageId: string;
 };
 
 export type HistoryState = {

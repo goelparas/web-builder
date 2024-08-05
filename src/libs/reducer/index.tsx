@@ -1,3 +1,4 @@
+"use client"
 import { EditorAction } from "../actions/editor.actions";
 import { Editor, WebBuilder, HistoryState } from "../types/editor";
 import { EditorActionType } from "../types/editor-action.types";
@@ -14,7 +15,7 @@ const intialEditorState: Editor = {
       content: {},
     },
   ],
-  funnelPageId: "",
+  pageId: "",
   previewMode: false,
   selectedElement: {
     id: "",
@@ -30,7 +31,7 @@ const initialHistoryState: HistoryState = {
   currentHistoryPointer: 0,
 };
 
-const initialState: WebBuilder = {
+export const initialState: WebBuilder = {
   editor: intialEditorState,
   history: initialHistoryState,
 };
@@ -62,7 +63,6 @@ export const EditorReducer = (
         },
       };
     }
-
     case EditorActionType.UPDATE_ELEMENT: {
       let updatedEditorState = {
         ...state.editor,
@@ -84,7 +84,6 @@ export const EditorReducer = (
         },
       };
     }
-
     case EditorActionType.DELETE_ELEMENT: {
       const updatedEditorState = {
         ...state.editor,
@@ -109,7 +108,6 @@ export const EditorReducer = (
         },
       };
     }
-
     case EditorActionType.CHANGE_CLICKED_ELEMENT: {
       let updatedEditorState = {
         ...state.editor,
@@ -124,7 +122,6 @@ export const EditorReducer = (
         },
       };
     }
-
     case EditorActionType.CHANGE_DEVICE: {
       let updatedEditorState = {
         ...state.editor,
@@ -136,7 +133,6 @@ export const EditorReducer = (
         editor: updatedEditorState,
       };
     }
-
     case EditorActionType.TOGGLE_PREVIEW_MODE:
       return {
         ...state,
