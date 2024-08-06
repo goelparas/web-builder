@@ -6,9 +6,11 @@ import {
 } from "@/components/ui/accordion";
 import { EditorBtns } from "@/libs/types/editor-element";
 import React from "react";
-import ContainerPlaceholder from "../ComponentLibrary/ContainerPlaceholder";
+import ButtonPlaceHolder from "../ComponentLibrary/ButttonPlaceholder";
 import TextPlaceholder from "../ComponentLibrary/TextPlaceHolder";
 import LinkPlaceholder from "../ComponentLibrary/LinkPlaceholder";
+import ImagePlaceHolder from "../ComponentLibrary/ImagePlaceHolder";
+import VideoPlaceHolder from "../ComponentLibrary/VideoPlaceHolder";
 type Props = {};
 
 const ComponentsTab = () => {
@@ -23,15 +25,26 @@ const ComponentsTab = () => {
       id: "text",
     },
     {
-      Component: <ContainerPlaceholder />,
-      label: "Container",
-      id: "div",
+      Component: <ButtonPlaceHolder />,
+      label: "Button",
+      id: "button",
     },
 
     {
       Component: <LinkPlaceholder />,
       label: "Link",
       id: "link",
+    },
+
+    {
+      Component: <ImagePlaceHolder />,
+      label: "Image",
+      id: "image",
+    },
+    {
+      Component: <VideoPlaceHolder />,
+      label: "Video",
+      id: "video",
     },
   ];
 

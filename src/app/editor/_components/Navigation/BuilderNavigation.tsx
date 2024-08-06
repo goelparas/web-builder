@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { EditorContext } from "@/libs/context/editor.context";
-import { DeviceType } from "@/libs/types/editor";
+import { DeviceType } from "@/libs/types/editor.types";
 import { EditorActionType } from "@/libs/types/editor-action.types";
 import { cn } from "@/libs/utils/utils";
 import {
@@ -15,20 +15,25 @@ import {
   Undo2,
 } from "lucide-react";
 import React, { useContext } from "react";
-type Props = {
-  pageId: string;
-};
-
-const BuilderNavigation = ({ pageId }: Props) => {
+import { toast } from "@/components/ui/use-toast";
+import { useParams } from "next/navigation";
+ 
+const BuilderNavigation = () => {
   const { state, dispatch } = useContext(EditorContext);
   const handlePreviewClick = () =>dispatch({ type: EditorActionType.TOGGLE_PREVIEW_MODE });
   const handleUndo = () => dispatch({ type: EditorActionType.UNDO });
   const handleRedo = () => dispatch({ type: EditorActionType.REDO });
-
+  const {editorid} = useParams();
   const handleOnSave = async () => {
-    // logic for saving the whole json in the localstorage
-  };
+     localStorage.setItem(`template-${editorid}` as string, JSON.stringify(state.editor));
+     toast({
+      title: "Saved the template",
+      color: "bg-green-500",
 
+
+     })
+  };
+console.log(state)
   return (
     <nav
       className={cn(
@@ -38,7 +43,7 @@ const BuilderNavigation = ({ pageId }: Props) => {
     >
       <aside>
         <Tabs
-          defaultValue="Desktop"
+          defaultValue="desktop"
           className="w-fit"
           value={state.editor.device}
           onValueChange={(value) => {
@@ -50,21 +55,21 @@ const BuilderNavigation = ({ pageId }: Props) => {
         >
           <TabsList className="grid w-full grid-cols-3 bg-transparent h-fit">
             <TabsTrigger
-              value="Desktop"
+              value="desktop"
               className="data-[state=active]:bg-muted w-10 h-10 p-0"
             >
               <Laptop />
             </TabsTrigger>
 
             <TabsTrigger
-              value="Tablet"
+              value="tablet"
               className="w-10 h-10 p-0 data-[state=active]:bg-muted"
             >
               <Tablet />
             </TabsTrigger>
 
             <TabsTrigger
-              value="Mobile"
+              value="mobile"
               className="w-10 h-10 p-0 data-[state=active]:bg-muted"
             >
               <Smartphone />

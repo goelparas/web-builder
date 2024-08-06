@@ -1,30 +1,21 @@
 "use client";
 import { EditorAction } from "../actions/editor.actions";
-import { Editor, WebBuilder, HistoryState } from "../types/editor";
+import { Editor, WebBuilder, HistoryState } from "../types/editor.types";
 import { EditorActionType } from "../types/editor-action.types";
-import { EditorElement } from "../types/editor-element";
 import { addAnElement, updateElements } from "./reducer.helpers";
 
 const intialEditorState: Editor = {
   device: "desktop",
-  elements: [
-    {
-      id: "1",
-      style: {},
-      name: "body",
-      type: "body",
-      content: undefined,
-    },
-  ],
-  pageId: "",
+  elements: [],
   previewMode: false,
   selectedElement: {
-    id: "0",
+    elementId: "",
+    content: {},
+    name: "",
     style: {},
-    name: "body",
     type: null,
-    content: undefined,
   },
+  id: null,
 };
 
 const initialHistoryState: HistoryState = {
@@ -60,7 +51,7 @@ export const EditorReducer = (
         editor: updatedEditorState,
         history: {
           historyStack: updatedHistoryStack,
-          currentHistoryPointer: state.history.currentHistoryPointer++,
+          currentHistoryPointer: updatedHistoryStack.length - 1,
         },
       };
     }
@@ -92,7 +83,8 @@ export const EditorReducer = (
       const updatedEditorState = {
         ...state.editor,
         elements: state.editor.elements.filter(
-          (element) => element.id !== action.payload.elementDetails.id
+          (element) =>
+            element.elementId !== action.payload.elementDetails.elementId
         ),
       };
 
@@ -163,6 +155,9 @@ export const EditorReducer = (
     }
     case EditorActionType.UNDO: {
       if (state.history.currentHistoryPointer > 0) {
+        console.log(
+          state.history.historyStack[state.history.currentHistoryPointer - 1]
+        );
         return {
           editor:
             state.history.historyStack[state.history.currentHistoryPointer - 1],
@@ -173,6 +168,15 @@ export const EditorReducer = (
         };
       }
       return state;
+    }
+    case EditorActionType.LOAD_EDITOR: {
+      return {
+        editor: action.payload,
+        history: {
+          historyStack: [],
+          currentHistoryPointer: 0,
+        },
+      };
     }
     default:
       return state;

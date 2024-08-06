@@ -12,23 +12,21 @@ import { EditorContext } from "@/libs/context/editor.context";
 import React, { useContext } from "react";
 import { cn } from "@/libs/utils/utils";
 import TabList from ".";
-import SettingsTab from "./Sections/StyleSection";
+import StylingTab from "./Sections/StyleSection";
 import ComponentsTab from "./Sections/ComponentSection";
 
-type Props = {
-  pageId: string;
-};
-
-const BuilderSideBar = ({ pageId }: Props) => {
+ 
+const BuilderSideBar = () => {
   const { state, dispatch } = useContext(EditorContext);
   return (
-    <Sheet open={true} modal={false}>
-      <Tabs className="w-full " defaultValue="Settings">
+
+    <Sheet open={true} modal={false} >
+      <Tabs className="w-full h-full " defaultValue="Components">
         <SheetContent
           showX={false}
           side="right"
           className={cn(
-            "mt-[97px] w-16 z-[80] shadow-none  p-0 focus:border-none transition-all overflow-hidden",
+            "mt-[97px] w-[5%]  z-[80] shadow-none  p-0 focus:border-none transition-all overflow-hidden",
             { hidden: state.editor.previewMode }
           )}
         >
@@ -37,7 +35,7 @@ const BuilderSideBar = ({ pageId }: Props) => {
         <SheetContent
           side="right"
           className={cn(
-            "mt-[97px] w-80 z-[40] shadow-none p-0 mr-16 bg-background h-full transition-all overflow-hidden ",
+            "mt-[97px] w-[20%] z-[40] shadow-none p-0 mr-16 bg-background h-full transition-all overflow-hidden ",
             { hidden: state.editor.previewMode }
           )}
         >
@@ -46,17 +44,17 @@ const BuilderSideBar = ({ pageId }: Props) => {
               <SheetHeader className="text-left p-6">
                 <SheetTitle>Styles</SheetTitle>
                 <SheetDescription>
-                 Style the components on the canvas
+                  Style the components on the canvas
                 </SheetDescription>
               </SheetHeader>
-              <SettingsTab />
+              <StylingTab />
             </TabsContent>
 
             <TabsContent value="Components">
               <SheetHeader className="text-left p-6 ">
                 <SheetTitle>Components</SheetTitle>
                 <SheetDescription>
-                 you can drag and drop the components
+                  you can drag and drop the components
                 </SheetDescription>
               </SheetHeader>
               <ComponentsTab />
