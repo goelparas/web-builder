@@ -1,17 +1,16 @@
 export type EditorBtns =
   | "text"
+  | "link"
   | "video"
   | "image"
   | "button"
-  | "body"
+  | "div"
   | null
-  | "link"
-  | "div";
 
 export type EditorElement = {
-  id: string;
+  elementId: string;
   style: React.CSSProperties;
   name: string;
   type: EditorBtns;
-  content: { [key: string]: any } | undefined;
+  content?: { innerText?: string , href?:string  }; 
 };

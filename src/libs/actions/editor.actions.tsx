@@ -1,4 +1,4 @@
-import { DeviceType } from "../types/editor";
+import { DeviceType, Editor } from "../types/editor.types";
 import { EditorActionType } from "../types/editor-action.types";
 import { EditorElement } from "../types/editor-element";
 
@@ -6,7 +6,6 @@ export type EditorAction =
   | {
       type: EditorActionType.ADD_ELEMENT;
       payload: {
-        containerId: string;
         elementDetails: EditorElement;
       };
     }
@@ -25,7 +24,7 @@ export type EditorAction =
   | {
       type: EditorActionType.CHANGE_CLICKED_ELEMENT;
       payload: {
-        elementDetails: EditorElement;
+        elementDetails?: EditorElement;
       };
     }
   | {
@@ -39,16 +38,4 @@ export type EditorAction =
     }
   | { type: EditorActionType.REDO }
   | { type: EditorActionType.UNDO }
-  | {
-      type: EditorActionType.LOAD_DATA;
-      payload: {
-        elements: EditorElement[];
-        withLive: boolean;
-      };
-    }
-  | {
-      type: EditorActionType.SET_FUNNELPAGE_ID;
-      payload: {
-        funnelPageId: string;
-      };
-    };
+  | { type: EditorActionType.LOAD_EDITOR; payload: Editor };
