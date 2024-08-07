@@ -44,6 +44,8 @@ export const EditorReducer = (
   state: WebBuilder = initialState,
   action: EditorAction
 ): WebBuilder => {
+
+  
   switch (action.type) {
     case EditorActionType.ADD_ELEMENT: {
       const updatedEditorState = {
@@ -63,7 +65,7 @@ export const EditorReducer = (
         editor: updatedEditorState,
         history: {
           historyStack: updatedHistoryStack,
-          currentHistoryPointer: updatedHistoryStack.length - 1,
+          currentHistoryPointer: state.history.currentHistoryPointer++,
         },
       };
     }
@@ -120,11 +122,8 @@ export const EditorReducer = (
       };
 
       return {
+        ...state,
         editor: updatedEditorState,
-        history: {
-          ...state.history,
-          currentHistoryPointer: state.history.currentHistoryPointer++,
-        },
       };
     }
     case EditorActionType.CHANGE_DEVICE: {
@@ -164,9 +163,6 @@ export const EditorReducer = (
     }
     case EditorActionType.UNDO: {
       if (state.history.currentHistoryPointer > 0) {
-        console.log(
-          state.history.historyStack[state.history.currentHistoryPointer - 1]
-        );
         return {
           editor:
             state.history.historyStack[state.history.currentHistoryPointer - 1],

@@ -1,5 +1,5 @@
 "use client";
-import { EditorContext, EditorProvider } from "@/libs/context/editor.context";
+import { EditorContext } from "@/libs/context/editor.context";
 import { EditorActionType } from "@/libs/types/editor-action.types";
 import { Editor } from "@/libs/types/editor.types";
 import { PlusIcon } from "lucide-react";

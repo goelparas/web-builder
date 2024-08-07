@@ -6,7 +6,7 @@ import { cn } from "@/libs/utils/utils";
 import { Badge, Trash } from "lucide-react";
 import React, { useContext } from "react";
 import { v4 } from "uuid";
-import RenderComponent from "../../RenderComponent";
+import RenderComponent from "../ElementComponents/RenderComponent";
 type Props = {
   element: EditorElement;
 };
@@ -22,7 +22,6 @@ const ContainerComponent = ({ element }: Props) => {
     type: EditorBtns;
     content: EditorElement["content"];
   }) => {
-    console.log('dispatching in element of type',type , 'content', content ,'id' ,elementId)
     dispatch({
       type: EditorActionType.ADD_ELEMENT,
       payload: {

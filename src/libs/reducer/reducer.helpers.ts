@@ -56,9 +56,7 @@ export const deleteAnElement = (
   action: EditorAction
 ): EditorElement[] => {
   if (action.type !== "DELETE_ELEMENT")
-    throw Error(
-      "You sent the wrong action type to the Delete Element editor State"
-    );
+   return editorArray;
   return editorArray.filter((item) => {
     if (item.elementId === action.payload.elementDetails.elementId) {
       return false;

@@ -4,7 +4,7 @@ import { EditorActionType } from "@/libs/types/editor-action.types";
 import { cn } from "@/libs/utils/utils";
 import { EyeOffIcon } from "lucide-react";
 import React, { useContext } from "react";
-import RenderComponent from "./RenderComponent";
+import RenderComponent from "./EditorComponent/ElementComponents/RenderComponent";
 const BuilderEditor = () => {
   const { state, dispatch } = useContext(EditorContext);
   const { device ,previewMode ,elements} = state.editor;

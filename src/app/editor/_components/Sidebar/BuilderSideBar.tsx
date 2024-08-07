@@ -17,7 +17,7 @@ import ComponentsTab from "./Sections/ComponentSection";
 
  
 const BuilderSideBar = () => {
-  const { state, dispatch } = useContext(EditorContext);
+  const { state } = useContext(EditorContext);
   return (
 
     <Sheet open={true} modal={false} >

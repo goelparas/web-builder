@@ -5,6 +5,7 @@ import { EditorElement } from "@/libs/types/editor-element";
 import { cn } from "@/libs/utils/utils";
 import { Badge, Trash } from "lucide-react";
 import React, { ChangeEvent, useContext } from "react";
+import Delete from "../components/Delete";
 
 type Props = {
   element: EditorElement;
@@ -23,12 +24,7 @@ const TextComponent = ({ element }: Props) => {
       },
     });
   };
-  const handleDeleteElement = () => {
-    dispatch({
-      type: EditorActionType.DELETE_ELEMENT,
-      payload: { elementDetails: element },
-    });
-  };
+ 
   const handleblur = (event: ChangeEvent<HTMLSpanElement>) => {
     const spanElement = event.target;
     dispatch({
@@ -63,15 +59,7 @@ const TextComponent = ({ element }: Props) => {
       >
         {getTextOrLink(element)}
       </span>
-      {selectedElement.elementId === elementId && !previewMode && (
-        <div className="absolute bg-primary px-2.5 py-1 text-xs font-bold -top-[25px] -right-[1px] rounded-none rounded-t-lg !text-white">
-          <Trash
-            className="cursor-pointer"
-            size={16}
-            onClick={handleDeleteElement}
-          />
-        </div>
-      )}
+       <Delete element={element}/>
     </div>
   );
 };
