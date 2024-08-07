@@ -148,15 +148,42 @@ const StylingTab = (props: Props) => {
               Custom
             </AccordionTrigger>
             <AccordionContent>
-              {selectedElement.type === "link" && (
+               {selectedElement.type === "image" && (
                 <div className="flex flex-col gap-2">
-                  <p className="text-muted-foreground">Link Path</p>
-                  <Input
-                    id="href"
-                    placeholder="https:domain.example.com/pathname"
-                    onChange={handleOnChanges}
-                    value={selectedElement.content.href}
-                  />
+                  <Label className="text-muted-foreground">
+                    Background Image
+                  </Label>
+                  <div className="flex  border-[1px] rounded-md overflow-clip">
+                    <div
+                      className="w-12 "
+                      style={{
+                        objectFit: "cover",
+                        backgroundImage: `url(${selectedElement?.content.href}?? "/public/placeholderImage.jpg")`,
+                      }}
+                    />
+                    <Input
+                      placeholder="Add Image url"
+                      className="!border-y-0 rounded-none !border-r-0 mr-2"
+                      id="href"
+                      onChange={handleMediaElementChange}
+                      value={selectedElement?.content.href}
+                    />
+                  </div>
+                </div>
+              )}
+
+              {selectedElement.type === "video" && (
+                <div className="flex flex-col gap-2">
+                  <Label className="text-muted-foreground">Video Source</Label>
+                  <div className="flex  border-[1px] rounded-md overflow-clip">
+                    <Input
+                      placeholder="Add Video url"
+                      className="!border-y-0 rounded-none !border-r-0 mr-2"
+                      id="href"
+                      onChange={handleMediaElementChange}
+                      value={selectedElement?.content.href ?? '/sample.mp4'}
+                    />
+                  </div>
                 </div>
               )}
             </AccordionContent>
@@ -276,44 +303,7 @@ const StylingTab = (props: Props) => {
                   />
                 </div>
               </div>
-              {selectedElement.type === "image" && (
-                <div className="flex flex-col gap-2">
-                  <Label className="text-muted-foreground">
-                    Background Image
-                  </Label>
-                  <div className="flex  border-[1px] rounded-md overflow-clip">
-                    <div
-                      className="w-12 "
-                      style={{
-                        objectFit: "cover",
-                        backgroundImage: `url(${selectedElement?.content.href}?? "/public/placeholderImage.jpg")`,
-                      }}
-                    />
-                    <Input
-                      placeholder="Add Image url"
-                      className="!border-y-0 rounded-none !border-r-0 mr-2"
-                      id="href"
-                      onChange={handleMediaElementChange}
-                      value={selectedElement?.content.href}
-                    />
-                  </div>
-                </div>
-              )}
-
-              {selectedElement.type === "video" && (
-                <div className="flex flex-col gap-2">
-                  <Label className="text-muted-foreground">Video Source</Label>
-                  <div className="flex  border-[1px] rounded-md overflow-clip">
-                    <Input
-                      placeholder="Add Video url"
-                      className="!border-y-0 rounded-none !border-r-0 mr-2"
-                      id="href"
-                      onChange={handleMediaElementChange}
-                      value={selectedElement?.content.href ?? '/sample.mp4'}
-                    />
-                  </div>
-                </div>
-              )}
+             
             </AccordionContent>
           </AccordionItem>
         </Accordion>

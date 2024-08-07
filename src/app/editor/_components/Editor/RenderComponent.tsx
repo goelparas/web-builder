@@ -3,7 +3,7 @@ import { EditorBtns, EditorElement } from "@/libs/types/editor-element";
 import React from "react";
 import TextComponent from "./EditorComponent/TextComponent";
 import VideoComponent from "./EditorComponent/VideoComponent";
-import LinkComponent from "./EditorComponent/LinkComponent";
+
 import ImageComponent from "./EditorComponent/ImageComponent";
 import ButtonComponent from "./EditorComponent/ButtonComponent";
 
@@ -19,8 +19,7 @@ const RenderComponent = ({ element }: Props) => {
       return <VideoComponent element={element} />;
     case "image":
       return <ImageComponent element={element} />;
-    case "link":
-      return <LinkComponent element={element} />;
+
     case "button":
       return <ButtonComponent element={element} />;
     default:
