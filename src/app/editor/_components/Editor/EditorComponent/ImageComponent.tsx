@@ -1,5 +1,6 @@
 import { Input } from "@/components/ui/input";
 import { EditorContext } from "@/libs/context/editor.context";
+import { getTextOrLink } from "@/libs/helpers";
 import { EditorActionType } from "@/libs/types/editor-action.types";
 import { EditorElement } from "@/libs/types/editor-element";
 import { cn } from "@/libs/utils/utils";
@@ -38,7 +39,7 @@ const ImageComponent = ({ element }: Props) => {
           ...element.style,
         }}
         className="w-full h-full object-cover"
-        src={content.href ?? "/placeholderImage.jpg"}
+        src={getTextOrLink(element) ?? "/placeholderImage.jpg"}
       />
     </div>
   );

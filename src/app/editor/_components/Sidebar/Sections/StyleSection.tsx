@@ -21,7 +21,7 @@ import { useContext } from "react";
 import { EditorContext } from "@/libs/context/editor.context";
 import { EditorActionType } from "@/libs/types/editor-action.types";
 import { EditorElement } from "@/libs/types/editor-element";
-import { removePx } from "@/libs/helpers";
+import { getTextOrLink, removePx } from "@/libs/helpers";
 
 type Props = {};
 
@@ -153,12 +153,12 @@ const StylingTab = (props: Props) => {
                   <Label className="text-muted-foreground">
                     Background Image
                   </Label>
-                  <div className="flex  border-[1px] rounded-md overflow-clip">
+                  <div className="flex  border rounded-md overflow-clip">
                     <div
                       className="w-12 "
                       style={{
                         objectFit: "cover",
-                        backgroundImage: `url(${selectedElement?.content.href}?? "/public/placeholderImage.jpg")`,
+                        backgroundImage: `url(${getTextOrLink(selectedElement) }?? "/public/placeholderImage.jpg")`,
                       }}
                     />
                     <Input
@@ -166,7 +166,7 @@ const StylingTab = (props: Props) => {
                       className="!border-y-0 rounded-none !border-r-0 mr-2"
                       id="href"
                       onChange={handleMediaElementChange}
-                      value={selectedElement?.content.href}
+                      value={getTextOrLink(selectedElement) }
                     />
                   </div>
                 </div>
@@ -175,13 +175,13 @@ const StylingTab = (props: Props) => {
               {selectedElement.type === "video" && (
                 <div className="flex flex-col gap-2">
                   <Label className="text-muted-foreground">Video Source</Label>
-                  <div className="flex  border-[1px] rounded-md overflow-clip">
+                  <div className="flex  border rounded-md overflow-clip">
                     <Input
                       placeholder="Add Video url"
                       className="!border-y-0 rounded-none !border-r-0 mr-2"
                       id="href"
                       onChange={handleMediaElementChange}
-                      value={selectedElement?.content.href ?? '/sample.mp4'}
+                      value={getTextOrLink(selectedElement) ?? '/sample.mp4'}
                     />
                   </div>
                 </div>
@@ -287,7 +287,7 @@ const StylingTab = (props: Props) => {
                 <Label className="text-muted-foreground">
                   Background Color
                 </Label>
-                <div className="flex  border-[1px] rounded-md overflow-clip">
+                <div className="flex  border rounded-md overflow-clip">
                   <div
                     className="w-12"
                     style={{

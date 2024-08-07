@@ -2,20 +2,32 @@
 import { EditorAction } from "../actions/editor.actions";
 import { Editor, WebBuilder, HistoryState } from "../types/editor.types";
 import { EditorActionType } from "../types/editor-action.types";
-import { addAnElement, updateElements } from "./reducer.helpers";
-
+import {
+  addAnElement,
+  deleteAnElement,
+  updateElements,
+} from "./reducer.helpers";
+import { v4 as uuid } from "uuid";
 const intialEditorState: Editor = {
   device: "desktop",
-  elements: [],
+  elements: [
+    {
+      elementId: `${uuid()}-body`,
+      content: [],
+      name: "body",
+      style: {},
+      type: "body",
+    },
+  ],
   previewMode: false,
   selectedElement: {
     elementId: "",
-    content: {},
+    content: [],
     name: "",
     style: {},
     type: null,
   },
-  id: null,
+  editorId: null,
 };
 
 const initialHistoryState: HistoryState = {
@@ -56,7 +68,7 @@ export const EditorReducer = (
       };
     }
     case EditorActionType.UPDATE_ELEMENT: {
-      let updatedElements = updateElements(state.editor, action);
+      let updatedElements = updateElements(state.editor.elements, action);
       let updatedEditorState: Editor = {
         ...state.editor,
         selectedElement: action.payload.elementDetails,
@@ -82,10 +94,7 @@ export const EditorReducer = (
     case EditorActionType.DELETE_ELEMENT: {
       const updatedEditorState = {
         ...state.editor,
-        elements: state.editor.elements.filter(
-          (element) =>
-            element.elementId !== action.payload.elementDetails.elementId
-        ),
+        elements: deleteAnElement(state.editor.elements, action),
       };
 
       const updatedHistoryStack = [

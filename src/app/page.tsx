@@ -33,7 +33,7 @@ const page = () => {
         ...obj,
       },
     });
-    router.push(`/editor/${obj.id}`);
+    router.push(`/editor/${obj.editorId}`);
   };
 
   const createNewTemplate = () => {
@@ -42,7 +42,7 @@ const page = () => {
       type: EditorActionType.LOAD_EDITOR,
       payload: {
         ...state.editor,
-        id: newId,
+        editorId: newId,
       },
     });
     router.push(`/editor/${newId}`);
@@ -59,12 +59,12 @@ const page = () => {
             {ids.map((editor) => {
               return (
                 <div
-                  key={editor.id}
+                  key={editor.editorId}
                   className="bg-white shadow-md rounded-lg p-6 hover:bg-gray-100 hover:shadow-lg transition-transform duration-300 cursor-pointer flex items-center justify-center"
                   onClick={() => handleSetEditor(editor)}
                 >
                   <h2 className="text-lg font-semibold">
-                    Editor ID: {editor.id}
+                    Editor ID: {editor.editorId}
                   </h2>
                 </div>
               );

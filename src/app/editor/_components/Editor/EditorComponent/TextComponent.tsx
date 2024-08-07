@@ -1,4 +1,5 @@
 import { EditorContext } from "@/libs/context/editor.context";
+import { getTextOrLink } from "@/libs/helpers";
 import { EditorActionType } from "@/libs/types/editor-action.types";
 import { EditorElement } from "@/libs/types/editor-element";
 import { cn } from "@/libs/utils/utils";
@@ -60,7 +61,7 @@ const TextComponent = ({ element }: Props) => {
         onBlur={handleblur}
         className="min-h-11 p-4 outline-none"
       >
-        {content?.innerText ?? "Enter Something cool"}
+        {getTextOrLink(element)}
       </span>
       {selectedElement.elementId === elementId && !previewMode && (
         <div className="absolute bg-primary px-2.5 py-1 text-xs font-bold -top-[25px] -right-[1px] rounded-none rounded-t-lg !text-white">

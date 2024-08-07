@@ -11,6 +11,7 @@ import TextPlaceholder from "../ComponentLibrary/TextPlaceHolder";
 
 import ImagePlaceHolder from "../ComponentLibrary/ImagePlaceHolder";
 import VideoPlaceHolder from "../ComponentLibrary/VideoPlaceHolder";
+import ContainerPlaceholder from "../ComponentLibrary/ContainerPlaceholder";
 type Props = {};
 
 const ComponentsTab = () => {
@@ -30,7 +31,6 @@ const ComponentsTab = () => {
       id: "button",
     },
 
- 
     {
       Component: <ImagePlaceHolder />,
       label: "Image",
@@ -40,6 +40,11 @@ const ComponentsTab = () => {
       Component: <VideoPlaceHolder />,
       label: "Video",
       id: "video",
+    },
+    {
+      Component: <ContainerPlaceholder />,
+      label: "Container",
+      id: "div",
     },
   ];
 

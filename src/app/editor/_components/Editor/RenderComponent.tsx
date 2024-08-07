@@ -6,6 +6,7 @@ import VideoComponent from "./EditorComponent/VideoComponent";
 
 import ImageComponent from "./EditorComponent/ImageComponent";
 import ButtonComponent from "./EditorComponent/ButtonComponent";
+import ContainerComponent from "./EditorComponent/LayoutComponent/ContainerComponent";
 
 type Props = {
   element: EditorElement;
@@ -19,9 +20,12 @@ const RenderComponent = ({ element }: Props) => {
       return <VideoComponent element={element} />;
     case "image":
       return <ImageComponent element={element} />;
-
     case "button":
       return <ButtonComponent element={element} />;
+      case "div":
+      return <ContainerComponent element={element} />;
+      case 'body':
+        return <ContainerComponent element={element} />
     default:
       return null;
   }

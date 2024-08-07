@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { EditorContext } from "@/libs/context/editor.context";
+import { getTextOrLink } from "@/libs/helpers";
 import { EditorActionType } from "@/libs/types/editor-action.types";
 import { EditorElement } from "@/libs/types/editor-element";
 import { cn } from "@/libs/utils/utils";
@@ -35,7 +36,7 @@ const ButtonComponent = ({ element }: Props) => {
       style={{ ...element.style }}
       onClick={handleClick}
     >
-      {content.innerText ?? "Button"}
+      {getTextOrLink(element) ?? "Button"}
     </button>
   );
 };

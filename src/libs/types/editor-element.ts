@@ -5,6 +5,7 @@ export type EditorBtns =
   | "image"
   | "button"
   | "div"
+  | "body"
   | null
 
 export type EditorElement = {
@@ -12,5 +13,5 @@ export type EditorElement = {
   style: React.CSSProperties;
   name: string;
   type: EditorBtns;
-  content?: { innerText?: string , href?:string  }; 
+  content: EditorElement[]| { innerText?: string , href?:string  }; 
 };
