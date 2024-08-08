@@ -40,9 +40,9 @@ const VideoComponent = ({ element }: Props) => {
         className="w-full h-full pointer-events-none"
         src={getTextOrLink(selectedElement) ?? "/sample.mp4"}
         controls
-       autoPlay
+        autoPlay
       />
-      <Delete element={element}/>
+      <Delete element={element} />
     </div>
   );
 };

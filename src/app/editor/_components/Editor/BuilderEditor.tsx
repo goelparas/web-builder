@@ -7,7 +7,7 @@ import React, { useContext } from "react";
 import RenderComponent from "./EditorComponent/ElementComponents/RenderComponent";
 const BuilderEditor = () => {
   const { state, dispatch } = useContext(EditorContext);
-  const { device ,previewMode ,elements} = state.editor;
+  const { device, previewMode, elements } = state.editor;
 
   const handlePreview = () =>
     dispatch({ type: EditorActionType.TOGGLE_PREVIEW_MODE });
@@ -17,7 +17,7 @@ const BuilderEditor = () => {
       className={cn(
         "h-full relative overflow-scroll duration-100  border  bg-white transition-all rounded-md shadow-sm",
         {
-          "!p-0 !mr-0 fixed w-full h-full top-0 left-0":
+          "!p-0 !mr-0 fixed w-full h-full":
             previewMode === true,
           "!w-[850px]  ": device === "tablet",
           "!w-[420px] ": device === "mobile",

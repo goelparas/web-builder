@@ -43,7 +43,7 @@ const TextComponent = ({ element }: Props) => {
     <div
       style={style}
       className={cn(
-        "p-4 w-full m-1 min-h-11 relative text-base transition-all ",
+        "p-4 w-fit m-1 min-h-11 relative text-base transition-all ",
         {
           "!border-blue-500": selectedElement.elementId === elementId,
           "!border-solid": selectedElement.elementId === elementId,

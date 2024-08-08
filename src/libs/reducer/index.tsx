@@ -27,7 +27,7 @@ const intialEditorState: Editor = {
     style: {},
     type: null,
   },
-  editorId: null,
+  editorId: uuid(),
 };
 
 const initialHistoryState: HistoryState = {
@@ -44,8 +44,6 @@ export const EditorReducer = (
   state: WebBuilder = initialState,
   action: EditorAction
 ): WebBuilder => {
-
-  
   switch (action.type) {
     case EditorActionType.ADD_ELEMENT: {
       const updatedEditorState = {
@@ -94,9 +92,17 @@ export const EditorReducer = (
       };
     }
     case EditorActionType.DELETE_ELEMENT: {
+      let updatedEditor = deleteAnElement(state.editor.elements, action);
       const updatedEditorState = {
         ...state.editor,
-        elements: deleteAnElement(state.editor.elements, action),
+        selectedElement: {
+          elementId: "",
+          content: {},
+          name: "",
+          style: {},
+          type: null,
+        },
+        elements: updatedEditor,
       };
 
       const updatedHistoryStack = [
@@ -164,8 +170,11 @@ export const EditorReducer = (
     case EditorActionType.UNDO: {
       if (state.history.currentHistoryPointer > 0) {
         return {
-          editor:
-            state.history.historyStack[state.history.currentHistoryPointer - 1],
+          editor: {
+            ...state.history.historyStack[
+              state.history.currentHistoryPointer - 1
+            ],
+          },
           history: {
             ...state.history,
             currentHistoryPointer: state.history.currentHistoryPointer - 1,

@@ -55,8 +55,7 @@ export const deleteAnElement = (
   editorArray: EditorElement[],
   action: EditorAction
 ): EditorElement[] => {
-  if (action.type !== "DELETE_ELEMENT")
-   return editorArray;
+  if (action.type !== "DELETE_ELEMENT") return editorArray;
   return editorArray.filter((item) => {
     if (item.elementId === action.payload.elementDetails.elementId) {
       return false;

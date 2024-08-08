@@ -31,6 +31,7 @@ const ContainerComponent = ({ element }: Props) => {
           type: type,
           style: {
             ...defaultStyling,
+
           },
           content:
             typeof content !== "undefined"
@@ -45,7 +46,7 @@ const ContainerComponent = ({ element }: Props) => {
   };
   const handleOnDrop = (e: React.DragEvent) => {
     e.preventDefault();
-    e.stopPropagation()
+    e.stopPropagation();
     const componentType = e.dataTransfer.getData("componentType") as EditorBtns;
 
     switch (componentType) {
@@ -79,15 +80,15 @@ const ContainerComponent = ({ element }: Props) => {
           type: EditorActionType.ADD_ELEMENT,
           payload: {
             containerId: elementId,
-             elementDetails: {
+            elementDetails: {
               content: [],
               elementId: v4(),
-              name: 'Container',
-              style: { ...defaultStyling },
-              type: 'div',
+              name: "Container",
+              style: { ...defaultStyling, display: "flex" , flexDirection: "row" },
+              type: "div",
             },
           },
-        })
+        });
         break;
       default:
         break;
@@ -96,7 +97,7 @@ const ContainerComponent = ({ element }: Props) => {
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
-    e.stopPropagation()
+    e.stopPropagation();
   };
 
   const handleDragStart = (e: React.DragEvent, type: string) => {
@@ -125,7 +126,7 @@ const ContainerComponent = ({ element }: Props) => {
   return (
     <div
       style={style}
-      className={cn("relative p-4 !border-4 m-2 transition-all group", {
+      className={cn("relative p-4  m-2 transition-all group", {
         "max-w-full w-full": type === "div",
         "h-fit min-h-20": type === "div",
         "h-full": type === "body",

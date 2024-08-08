@@ -1,6 +1,6 @@
 "use client";
-import { EditorProvider } from "@/libs/context/editor.context";
-import React from "react";
+import { EditorContext, EditorProvider } from "@/libs/context/editor.context";
+import React, { useContext } from "react";
 import BuilderNavigation from "../_components/Navigation/BuilderNavigation";
 import BuilderSideBar from "../_components/Sidebar/BuilderSideBar";
 import { useParams } from "next/navigation";
@@ -11,6 +11,8 @@ type Props = {
 };
 
 const Layout = ({ children }: Props) => {
+  const { state } = useContext(EditorContext);
+
   return (
     <>
       <Toaster />
@@ -19,12 +21,13 @@ const Layout = ({ children }: Props) => {
         <div className="w-full h-full relative flex">
           <div
             className={cn(
-              `w-3/4 flex items-center h-full justify-center bg-gray-500 border relative`
+              `w-3/4 flex items-center transition-all duration-300 ease-in-out h-full justify-center bg-gray-500 border relative `,
+              { "w-full": state.editor.previewMode }
             )}
           >
             {children}
           </div>
-          <div className="w-1/4">
+          <div className={cn(`1/4`, { "w-0": state.editor.previewMode })}>
             <BuilderSideBar />
           </div>
         </div>
