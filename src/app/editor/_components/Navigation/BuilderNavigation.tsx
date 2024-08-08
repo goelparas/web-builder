@@ -33,7 +33,6 @@ const BuilderNavigation = () => {
 
      })
   };
-console.log(state)
   return (
     <nav
       className={cn(

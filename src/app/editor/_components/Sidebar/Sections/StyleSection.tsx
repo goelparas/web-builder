@@ -43,7 +43,6 @@ const StylingTab = (props: Props) => {
   const handleOnChanges = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = event.target;
     const styleObject = { [id]: value };
-    console.log(styleObject);
     dispatch({
       type: EditorActionType.UPDATE_ELEMENT,
       payload: {
