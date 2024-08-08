@@ -6,6 +6,7 @@ export type EditorAction =
   | {
       type: EditorActionType.ADD_ELEMENT;
       payload: {
+        containerId: string;
         elementDetails: EditorElement;
       };
     }

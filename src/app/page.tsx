@@ -1,5 +1,5 @@
 "use client";
-import { EditorContext, EditorProvider } from "@/libs/context/editor.context";
+import { EditorContext } from "@/libs/context/editor.context";
 import { EditorActionType } from "@/libs/types/editor-action.types";
 import { Editor } from "@/libs/types/editor.types";
 import { PlusIcon } from "lucide-react";
@@ -23,6 +23,7 @@ const page = () => {
     };
     fetchTemplates();
   }, []);
+
   const { state, dispatch } = useContext(EditorContext);
   const router = useRouter();
   const handleSetEditor = (obj: Editor) => {
@@ -33,7 +34,7 @@ const page = () => {
         ...obj,
       },
     });
-    router.push(`/editor/${obj.id}`);
+    router.push(`/editor/${obj.editorId}`);
   };
 
   const createNewTemplate = () => {
@@ -42,7 +43,7 @@ const page = () => {
       type: EditorActionType.LOAD_EDITOR,
       payload: {
         ...state.editor,
-        id: newId,
+        editorId: newId,
       },
     });
     router.push(`/editor/${newId}`);
@@ -53,33 +54,36 @@ const page = () => {
       {ids.length > 0 && (
         <>
           <h1 className="font-bold text-2xl w-full text-center">
-            Select Our  Template to Edit
+            Select Our Template to Edit
           </h1>
-          <div className="w-full  flex gap-3 justify-center">
+          <div className="w-full  flex gap-3 justify-center flex-col  border-4 p-4">
             {ids.map((editor) => {
               return (
                 <div
-                  key={editor.id}
-                  className="bg-white shadow-md rounded-lg p-6 hover:bg-gray-100 hover:shadow-lg transition-transform duration-300 cursor-pointer flex items-center justify-center"
+                  key={editor.editorId}
+                  className="bg-white shadow-md rounded-lg px-6 py-6 hover:bg-gray-100 hover:shadow-lg transition-transform duration-300 cursor-pointer flex items-center justify-center"
                   onClick={() => handleSetEditor(editor)}
                 >
-                  <h2 className="text-lg font-semibold">
-                    Editor ID: {editor.id}
+                  <h2 className="text-lg font-semibold text-start w-full">
+                    Editor ID: {editor.editorId}
                   </h2>
                 </div>
               );
             })}
           </div>
-          <p className="text-xl antialiased font-thin w-full text-center"> ----- OR -------</p>
+          <p className="text-xl antialiased font-thin w-full text-center">
+            {" "}
+            ----- OR -------
+          </p>
         </>
       )}
-     
+
       <div
-        className="bg-white font-bold flex items-center gap-2 justify-center shadow-md rounded-lg p-6 hover:bg-gray-100 hover:shadow-lg transition-transform duration-300 cursor-pointer mx-auto"
+        className="bg-white font-bold flex items-center gap-2 justify-center shadow-md rounded-lg px-6 py-4 hover:bg-gray-100 hover:shadow-lg transition-transform duration-300 cursor-pointer mx-auto"
         onClick={() => createNewTemplate()}
-      >  Create New Template
+      >
+        Create Template
         <h2 className="text-lg font-semibold ">
-        
           <PlusIcon />
         </h2>
       </div>

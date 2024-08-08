@@ -8,9 +8,10 @@ import { EditorBtns } from "@/libs/types/editor-element";
 import React from "react";
 import ButtonPlaceHolder from "../ComponentLibrary/ButttonPlaceholder";
 import TextPlaceholder from "../ComponentLibrary/TextPlaceHolder";
-import LinkPlaceholder from "../ComponentLibrary/LinkPlaceholder";
+
 import ImagePlaceHolder from "../ComponentLibrary/ImagePlaceHolder";
 import VideoPlaceHolder from "../ComponentLibrary/VideoPlaceHolder";
+import ContainerPlaceholder from "../ComponentLibrary/ContainerPlaceholder";
 type Props = {};
 
 const ComponentsTab = () => {
@@ -31,12 +32,6 @@ const ComponentsTab = () => {
     },
 
     {
-      Component: <LinkPlaceholder />,
-      label: "Link",
-      id: "link",
-    },
-
-    {
       Component: <ImagePlaceHolder />,
       label: "Image",
       id: "image",
@@ -45,6 +40,11 @@ const ComponentsTab = () => {
       Component: <VideoPlaceHolder />,
       label: "Video",
       id: "video",
+    },
+    {
+      Component: <ContainerPlaceholder />,
+      label: "Container",
+      id: "div",
     },
   ];
 

@@ -2,20 +2,32 @@
 import { EditorAction } from "../actions/editor.actions";
 import { Editor, WebBuilder, HistoryState } from "../types/editor.types";
 import { EditorActionType } from "../types/editor-action.types";
-import { addAnElement, updateElements } from "./reducer.helpers";
-
+import {
+  addAnElement,
+  deleteAnElement,
+  updateElements,
+} from "./reducer.helpers";
+import { v4 as uuid } from "uuid";
 const intialEditorState: Editor = {
   device: "desktop",
-  elements: [],
+  elements: [
+    {
+      elementId: `${uuid()}-body`,
+      content: [],
+      name: "body",
+      style: {},
+      type: "body",
+    },
+  ],
   previewMode: false,
   selectedElement: {
     elementId: "",
-    content: {},
+    content: [],
     name: "",
     style: {},
     type: null,
   },
-  id: null,
+  editorId: uuid(),
 };
 
 const initialHistoryState: HistoryState = {
@@ -51,12 +63,12 @@ export const EditorReducer = (
         editor: updatedEditorState,
         history: {
           historyStack: updatedHistoryStack,
-          currentHistoryPointer: updatedHistoryStack.length - 1,
+          currentHistoryPointer: state.history.currentHistoryPointer++,
         },
       };
     }
     case EditorActionType.UPDATE_ELEMENT: {
-      let updatedElements = updateElements(state.editor, action);
+      let updatedElements = updateElements(state.editor.elements, action);
       let updatedEditorState: Editor = {
         ...state.editor,
         selectedElement: action.payload.elementDetails,
@@ -80,12 +92,17 @@ export const EditorReducer = (
       };
     }
     case EditorActionType.DELETE_ELEMENT: {
+      let updatedEditor = deleteAnElement(state.editor.elements, action);
       const updatedEditorState = {
         ...state.editor,
-        elements: state.editor.elements.filter(
-          (element) =>
-            element.elementId !== action.payload.elementDetails.elementId
-        ),
+        selectedElement: {
+          elementId: "",
+          content: {},
+          name: "",
+          style: {},
+          type: null,
+        },
+        elements: updatedEditor,
       };
 
       const updatedHistoryStack = [
@@ -111,11 +128,8 @@ export const EditorReducer = (
       };
 
       return {
+        ...state,
         editor: updatedEditorState,
-        history: {
-          ...state.history,
-          currentHistoryPointer: state.history.currentHistoryPointer++,
-        },
       };
     }
     case EditorActionType.CHANGE_DEVICE: {
@@ -155,12 +169,12 @@ export const EditorReducer = (
     }
     case EditorActionType.UNDO: {
       if (state.history.currentHistoryPointer > 0) {
-        console.log(
-          state.history.historyStack[state.history.currentHistoryPointer - 1]
-        );
         return {
-          editor:
-            state.history.historyStack[state.history.currentHistoryPointer - 1],
+          editor: {
+            ...state.history.historyStack[
+              state.history.currentHistoryPointer - 1
+            ],
+          },
           history: {
             ...state.history,
             currentHistoryPointer: state.history.currentHistoryPointer - 1,

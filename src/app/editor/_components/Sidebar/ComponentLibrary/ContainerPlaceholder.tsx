@@ -1,10 +1,10 @@
 import { EditorBtns } from "@/libs/types/editor-element";
-import { Link2Icon } from "lucide-react";
+import { Container } from "lucide-react";
 import React from "react";
 
 type Props = {};
 
-const LinkPlaceholder = (props: Props) => {
+const ContainerPlaceholder = ( ) => {
   const handleDragStart = (e: React.DragEvent, type: EditorBtns) => {
     if (type === null) return;
     e.dataTransfer.setData("componentType", type);
@@ -12,12 +12,12 @@ const LinkPlaceholder = (props: Props) => {
   return (
     <div
       draggable
-      onDragStart={(e) => handleDragStart(e, "link")}
+      onDragStart={(e) => handleDragStart(e, "div")}
       className=" h-14 w-14 bg-muted rounded-lg flex items-center justify-center"
     >
-      <Link2Icon size={40} className="text-muted-foreground" />
+      <Container size={40} className="text-muted-foreground" />
     </div>
   );
 };
 
-export default LinkPlaceholder;
+export default ContainerPlaceholder;

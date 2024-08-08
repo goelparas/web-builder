@@ -7,7 +7,7 @@ export type Editor = {
   selectedElement: EditorElement;
   device: DeviceType;
   previewMode: boolean;
-  id: string;
+  editorId: string;
 };
 
 export type HistoryState = {

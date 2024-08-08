@@ -1,11 +1,13 @@
 import { Editor } from "@/libs/types/editor.types";
 import { EditorBtns, EditorElement } from "@/libs/types/editor-element";
 import React from "react";
-import TextComponent from "./EditorComponent/TextComponent";
-import VideoComponent from "./EditorComponent/VideoComponent";
-import LinkComponent from "./EditorComponent/LinkComponent";
-import ImageComponent from "./EditorComponent/ImageComponent";
-import ButtonComponent from "./EditorComponent/ButtonComponent";
+import TextComponent from "./TextComponent";
+import VideoComponent from "./VideoComponent";
+
+import ImageComponent from "./ImageComponent";
+import ButtonComponent from "./ButtonComponent";
+import ContainerComponent from "../LayoutComponent/ContainerComponent";
+import DragDeleteComponent from "../components/ParentComponent";
 
 type Props = {
   element: EditorElement;
@@ -19,10 +21,12 @@ const RenderComponent = ({ element }: Props) => {
       return <VideoComponent element={element} />;
     case "image":
       return <ImageComponent element={element} />;
-    case "link":
-      return <LinkComponent element={element} />;
     case "button":
       return <ButtonComponent element={element} />;
+    case "div":
+      return <ContainerComponent element={element} />;
+    case "body":
+      return <ContainerComponent element={element} />;
     default:
       return null;
   }

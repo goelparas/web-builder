@@ -21,7 +21,18 @@ import { useContext } from "react";
 import { EditorContext } from "@/libs/context/editor.context";
 import { EditorActionType } from "@/libs/types/editor-action.types";
 import { EditorElement } from "@/libs/types/editor-element";
-import { removePx } from "@/libs/helpers";
+import { getTextOrLink, removePx } from "@/libs/helpers";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  AlignHorizontalJustifyCenterIcon,
+  AlignHorizontalJustifyEndIcon,
+  AlignHorizontalJustifyStart,
+  AlignHorizontalSpaceAround,
+  AlignHorizontalSpaceBetween,
+  AlignVerticalJustifyCenter,
+  AlignVerticalJustifyStart,
+} from "lucide-react";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 type Props = {};
 
@@ -32,7 +43,6 @@ const StylingTab = (props: Props) => {
   const handleOnChanges = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = event.target;
     const styleObject = { [id]: value };
-
     dispatch({
       type: EditorActionType.UPDATE_ELEMENT,
       payload: {
@@ -72,7 +82,7 @@ const StylingTab = (props: Props) => {
           ...selectedElement,
           style: {
             ...selectedElement?.style,
-            fontWeight: `font-${value}`,
+            fontWeight: value,
           },
         },
       },
@@ -91,6 +101,26 @@ const StylingTab = (props: Props) => {
           style: {
             ...selectedElement?.style,
             [id]: `${value}px`,
+          },
+        },
+      },
+    });
+  };
+  const handleFlexPropertyChange = ({
+    id,
+    value,
+  }: {
+    id: string;
+    value: string | Number;
+  }) => {
+    dispatch({
+      type: EditorActionType.UPDATE_ELEMENT,
+      payload: {
+        elementDetails: {
+          ...selectedElement,
+          style: {
+            ...selectedElement?.style,
+            ...{ [id]: value },
           },
         },
       },
@@ -148,16 +178,161 @@ const StylingTab = (props: Props) => {
               Custom
             </AccordionTrigger>
             <AccordionContent>
-              {selectedElement.type === "link" && (
+              {selectedElement.type === "image" && (
                 <div className="flex flex-col gap-2">
-                  <p className="text-muted-foreground">Link Path</p>
-                  <Input
-                    id="href"
-                    placeholder="https:domain.example.com/pathname"
-                    onChange={handleOnChanges}
-                    value={selectedElement.content.href}
-                  />
+                  <Label className="text-muted-foreground">
+                    Background Image
+                  </Label>
+                  <div className="flex  border rounded-md overflow-clip">
+                    <div
+                      className="w-12 "
+                      style={{
+                        objectFit: "cover",
+                        backgroundImage: `url(${getTextOrLink(
+                          selectedElement
+                        )}?? "/public/placeholderImage.jpg")`,
+                      }}
+                    />
+                    <Input
+                      placeholder="Add Image url"
+                      className="!border-y-0 rounded-none !border-r-0 mr-2"
+                      id="href"
+                      onChange={handleMediaElementChange}
+                      value={getTextOrLink(selectedElement)}
+                    />
+                  </div>
                 </div>
+              )}
+
+              {selectedElement.type === "video" && (
+                <div className="flex flex-col gap-2">
+                  <Label className="text-muted-foreground">Video Source</Label>
+                  <div className="flex  border rounded-md overflow-clip">
+                    <Input
+                      placeholder="Add Video url"
+                      className="!border-y-0 rounded-none !border-r-0 mr-2"
+                      id="href"
+                      onChange={handleMediaElementChange}
+                      value={getTextOrLink(selectedElement) ?? "/sample.mp4"}
+                    />
+                  </div>
+                </div>
+              )}
+              {selectedElement.type === "div" && (
+                <>
+                  <Label className="text-muted-foreground">
+                    Justify Content
+                  </Label>
+                  <Tabs
+                    onValueChange={(value) =>
+                      handleFlexPropertyChange({
+                        id: "justifyContent",
+                        value,
+                      })
+                    }
+                    value={selectedElement.style.justifyContent}
+                  >
+                    <TabsList className="flex items-center flex-row justify-between border-[1px] rounded-md bg-transparent h-fit ">
+                      <TabsTrigger
+                        value="space-between"
+                        className="w-10 h-10 p-0 data-[state=active]:bg-muted"
+                      >
+                        <AlignHorizontalSpaceBetween size={18} />
+                      </TabsTrigger>
+                      <TabsTrigger
+                        value="space-evenly"
+                        className="w-10 h-10 p-0 data-[state=active]:bg-muted"
+                      >
+                        <AlignHorizontalSpaceAround size={18} />
+                      </TabsTrigger>
+                      <TabsTrigger
+                        value="center"
+                        className="w-10 h-10 p-0 data-[state=active]:bg-muted"
+                      >
+                        <AlignHorizontalJustifyCenterIcon size={18} />
+                      </TabsTrigger>
+                      <TabsTrigger
+                        value="start"
+                        className="w-10 h-10 p-0 data-[state=active]:bg-muted "
+                      >
+                        <AlignHorizontalJustifyStart size={18} />
+                      </TabsTrigger>
+                      <TabsTrigger
+                        value="end"
+                        className="w-10 h-10 p-0 data-[state=active]:bg-muted "
+                      >
+                        <AlignHorizontalJustifyEndIcon size={18} />
+                      </TabsTrigger>
+                    </TabsList>
+                  </Tabs>
+                  <Label className="text-muted-foreground">Align Items</Label>
+                  <Tabs
+                    onValueChange={(e) =>
+                      handleFlexPropertyChange({
+                        id: "alignItems",
+                        value: e,
+                      })
+                    }
+                    value={selectedElement.style.alignItems}
+                  >
+                    <TabsList className="flex items-center flex-row justify-between border-[1px] rounded-md bg-transparent h-fit">
+                      <TabsTrigger
+                        value="center"
+                        className="w-10 h-10 p-0 data-[state=active]:bg-muted"
+                      >
+                        <AlignVerticalJustifyCenter size={18} />
+                      </TabsTrigger>
+                      <TabsTrigger
+                        value="normal"
+                        className="w-10 h-10 p-0 data-[state=active]:bg-muted "
+                      >
+                        <AlignVerticalJustifyStart size={18} />
+                      </TabsTrigger>
+                    </TabsList>
+                  </Tabs>
+                  <div className="flex items-center gap-5 mt-4">
+                    <Label className="text-muted-foreground">Flex</Label>
+                    <Input
+                      className="h-4 w-4"
+                      placeholder="px"
+                      type="checkbox"
+                      id="display"
+                      checked={selectedElement.style.display === "flex"}
+                      onChange={(va) => {
+                        handleFlexPropertyChange({
+                          id: "display",
+                          value: va.target.checked ? "flex" : "block",
+                        });
+                      }}
+                    />
+                  </div>
+                  {selectedElement.style.display === "flex" && (
+                    <div className="flex gap-5 mt-4">
+                      <Label className="text-muted-foreground">Direction</Label>
+                      <RadioGroup
+                        defaultValue={selectedElement.style.flexDirection}
+                        onValueChange={(value) => {
+                          handleFlexPropertyChange({
+                            id: "flexDirection",
+                            value,
+                          });
+                        }}
+                        defaultChecked
+                        value={selectedElement.style.flexDirection}
+                        className="flex gap-5"
+                      >
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="column" id="r1" />
+                          <Label>Column</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="row" id="r2" />
+                          <Label htmlFor="r2">Row</Label>
+                        </div>
+                      </RadioGroup>
+                    </div>
+                  )}
+                </>
               )}
             </AccordionContent>
           </AccordionItem>
@@ -195,9 +370,9 @@ const StylingTab = (props: Props) => {
                     <SelectContent>
                       <SelectGroup>
                         <SelectLabel>Font Weights</SelectLabel>
-                        <SelectItem value="bold">Bold</SelectItem>
-                        <SelectItem value="normal">Regular</SelectItem>
-                        <SelectItem value="lighter">Light</SelectItem>
+                        <SelectItem value="700">Bold</SelectItem>
+                        <SelectItem value="500">Regular</SelectItem>
+                        <SelectItem value="300">Light</SelectItem>
                       </SelectGroup>
                     </SelectContent>
                   </Select>
@@ -260,7 +435,7 @@ const StylingTab = (props: Props) => {
                 <Label className="text-muted-foreground">
                   Background Color
                 </Label>
-                <div className="flex  border-[1px] rounded-md overflow-clip">
+                <div className="flex  border rounded-md overflow-clip">
                   <div
                     className="w-12"
                     style={{
@@ -276,50 +451,11 @@ const StylingTab = (props: Props) => {
                   />
                 </div>
               </div>
-              {selectedElement.type === "image" && (
-                <div className="flex flex-col gap-2">
-                  <Label className="text-muted-foreground">
-                    Background Image
-                  </Label>
-                  <div className="flex  border-[1px] rounded-md overflow-clip">
-                    <div
-                      className="w-12 "
-                      style={{
-                        objectFit: "cover",
-                        backgroundImage: `url(${selectedElement?.content.href}?? "/public/placeholderImage.jpg")`,
-                      }}
-                    />
-                    <Input
-                      placeholder="Add Image url"
-                      className="!border-y-0 rounded-none !border-r-0 mr-2"
-                      id="href"
-                      onChange={handleMediaElementChange}
-                      value={selectedElement?.content.href}
-                    />
-                  </div>
-                </div>
-              )}
-
-              {selectedElement.type === "video" && (
-                <div className="flex flex-col gap-2">
-                  <Label className="text-muted-foreground">Video Source</Label>
-                  <div className="flex  border-[1px] rounded-md overflow-clip">
-                    <Input
-                      placeholder="Add Video url"
-                      className="!border-y-0 rounded-none !border-r-0 mr-2"
-                      id="href"
-                      onChange={handleMediaElementChange}
-                      value={selectedElement?.content.href ?? '/sample.mp4'}
-                    />
-                  </div>
-                </div>
-              )}
             </AccordionContent>
           </AccordionItem>
         </Accordion>
       ) : (
-        <p className=" p-4 text-sm border border-red-500 ">
-          {" "}
+        <p className=" p-4 text-sm border border-red-500  m-3">
           Select the element to Start Styling
         </p>
       )}
